@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
         calculate(); // Calculate values
+
         console.log('Fund:', fund.value)
         console.log('Amount:', amountInput.value);
         console.log('Rate:', rateInput.value);
@@ -41,10 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
         amountInput.dataset.submittedValue = amountInput.value;
         rateInput.dataset.submittedValue = rateInput.value;
         taxableInput.dataset.submittedValue = taxableInput.value;
-        fund.dataset.submittedValue=fund.value
+        fund.dataset.submittedValue=fund.value;
+
+        localStorage.setItem('fundData', JSON.stringify({
+            amount: amountInput.value,
+            rate: rateInput.value,
+            taxableRate: taxableInput.value,
+            fund: fund.value,
+            interest: interest,
+            tax: tax,
+            total: total
+        }));
 
         form.reset(); // Reset form after submission
     });
+    
 
     document.addEventListener('formCalculated', function(event) {
         const interestInput = document.getElementById('interest');
